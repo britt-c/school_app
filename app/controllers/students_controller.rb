@@ -25,36 +25,35 @@ class StudentsController < ApplicationController
     @student = @school.student.new(student_params)
 
     if @student.save
-      redirect_to @student, notice: 'Student is created'
+      redirect_to(@student, notice: "Student is created")
     else
-      render :new
+      render(:new)
     end
   end
 
   # PUT/PATCH /schools/1/students/1
   def update
     if @student.update(student_params)
-      redirect_to @student, notice: 'Student is updated'
+      redirect_to(@student, notice: "Student is updated")
     else
-      render :edit
+      render(:edit)
     end
   end
 
   # DELETE /schools/1/students/1
   def destroy
     @student.destroy
-    redirect_to school_students_path(@school), notice: 'School is deleted'
-  end
+    redirect_to(school_students_path(@school), notice: "Student is deleted")  end
 
   private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_school
-      @school = School.find(params[:school_id])
+      @school = School.find(student_params[:school_id])
     end
 
     def set_student
-      @student = @school.students.find(params[:id])
+      @student = @school.students.find(student_params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
