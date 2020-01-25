@@ -1,9 +1,8 @@
-class SchoolsContorller < ApplicationController
-  # TODO: add this back in later when things are working again
- #before_action :load_school, only: %i(show edit update destroy)
+class SchoolsController < ApplicationController
+ before_action :load_school, only: %i(show edit update destroy)
 
   def index
-    @schools = School.first
+    @schools = School.all
   end
 
   def show
@@ -16,7 +15,7 @@ class SchoolsContorller < ApplicationController
   def create
     @school = School.new(school_params)
     if @school.save
-      redirect_to(schools_path(@school), notice: "School added")
+      redirect_to(school_path(@school), notice: "School added")
     else
       flash.now.alert = "Error saving school"
       render(:new)
@@ -24,11 +23,12 @@ class SchoolsContorller < ApplicationController
   end
 
   def edit
+     @school = School.find(params[:id]) 
   end
 
   def update
-    if @school.update(school_params)
-      redirect_to(schools_path(@school), notice: "School updated")
+    if @school.update(params)
+      redirect_to(school_path(@school), notice: "School updated")
     else
       flash.now.alert = "Error saving school"
       render(:edit)
@@ -43,7 +43,7 @@ class SchoolsContorller < ApplicationController
   private
 
   def load_school
-    @school = School.find(school_params[:id])
+    @school = School.find(params[:id])
   end
 
   def school_params

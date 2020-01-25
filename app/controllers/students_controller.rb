@@ -17,7 +17,7 @@ class StudentsController < ApplicationController
   end
 
   # GET /schools/1/students/1/edit
-  def edit
+  def edit 
   end
 
   # POST /schools/1/students
