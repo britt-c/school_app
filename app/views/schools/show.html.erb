@@ -1,0 +1,12 @@
+<h1>Schools#show</h1>
+<%= link_to("Add student", new_school_student_path(@school)) %>
+
+<ul>
+  <% @school.students.each do |student| %>
+    <li>
+      <%= student.name %>
+      - <%= link_to("edit", edit_school_student_path(@school, student)) %>
+        <%= link_to("delete", school_student_path(@school, student), method: :delete, data: {confirm: "Delete?"}) %>
+    </li>
+  <% end %>
+</ul>
